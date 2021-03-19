@@ -21,5 +21,25 @@
     <form action="" id="sendForm">
         <input name="message" autocomplete="off" /><button>send</button>
     </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        var socket = io() // 채팅 서버 분리 가능
+
+        socket.on('server message', (data) => {
+            $('#chatLog').append('<li> ' + data.message + '</li>')
+        })
+
+        $(document).ready(() => {
+            $('#sendForm').submit(() => {
+                var message = $('#sendForm input [name=message]')
+                socket.emit('client message', {message: message.val()})
+                message.val('')
+                return false
+            })
+        })
+    </script>
 </body>
 </html>
