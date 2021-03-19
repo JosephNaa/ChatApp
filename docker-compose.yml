@@ -1,0 +1,50 @@
+nginx:
+  build: ./nginx
+  links:
+    - node-1
+    - node-2
+    - node-3
+    - node-4
+    - node-5
+  ports:
+    - "3030:80"
+
+node-1:
+  build: ./node
+  links:
+    - redis
+  expose:
+    - "3030"
+
+node-2:
+  build: ./node
+  links:
+    - redis
+  expose:
+    - "3030"
+
+node-3:
+  build: ./node
+  links:
+    - redis
+  expose:
+    - "3030"
+
+node-4:
+  build: ./node
+  links:
+    - redis
+  expose:
+    - "3030"
+
+node-5:
+  build: ./node
+  links:
+    - redis
+  expose:
+    - "3030"
+
+redis:
+  image: redis:alpine
+  expose:
+    - "6379"
